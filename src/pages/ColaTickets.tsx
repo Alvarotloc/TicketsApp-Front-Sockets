@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { CardGrande } from "./CardGrande";
-import { HistorialTickets } from "./HistorialTickets";
+import { CardGrande } from "../components";
+import { HistorialTickets } from "../components";
 export const ColaTickets: FC = (): JSX.Element => {
   return (
     <div className="min-h-screen bg-slate-100 p-5">

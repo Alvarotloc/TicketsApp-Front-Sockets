@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "../components";
 
 export const IngresarEscritorio: FC = (): JSX.Element => {
   const [visible, setVisible] = useState(true);
   return (
     <div className="flex relative">
-      <Sidebar setVisible={setVisible} visible={visible}/>
+      <Sidebar setVisible={setVisible} visible={visible} />
       <div className="h-screen bg-slate-100 p-5 w-full">
         <main className="bg-white h-full pt-5 px-5">
           <h1 className="text-3xl font-semibold">Ingresar</h1>
@@ -44,7 +44,7 @@ export const IngresarEscritorio: FC = (): JSX.Element => {
               >
                 <svg
                   viewBox="0 0 24 24"
-                  className="w-5 h-5 mr-2 stroke-current stroke-1 fill-transparent"
+                  className="w-5 h-5 mr-2 stroke-current stroke-2 fill-transparent"
                 >
                   <path
                     strokeLinecap="round"

@@ -1,6 +1,3 @@
 export * from './CrearTicket'
 export * from './IngresarEscritorio'
 export * from './ColaTickets'
-export * from './CardGrande'
-export * from './HistorialTickets'
-export * from './Sidebar'

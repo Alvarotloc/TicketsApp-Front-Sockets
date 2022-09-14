@@ -9,12 +9,8 @@ export const CrearTicket: FC = (): JSX.Element => {
         </h1>
         <button className="bg-blue-500 hover:bg-blue-400 transition-colors cursor-pointer text-white rounded-3xl px-3 py-2 flex mb-10">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 mr-2"
+            className="w-6 h-6 mr-2 stroke-current stroke-2 fill-transparent"
           >
             <path
               strokeLinecap="round"
