@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CrearTicket } from "./pages";
+import { CrearTicket, IngresarEscritorio } from "./pages";
 
 const App: FC = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<h1>Pagina de ingresar</h1>} />
+          <Route index element={<IngresarEscritorio />} />
           <Route path="/escritorio" element={<h1>Pagina de escritorio</h1>} />
           <Route path="/cola" element={<h1>Pagina de cola de clientes</h1>} />
           <Route path="/crear" element={<CrearTicket />} />
