@@ -1,8 +1,27 @@
-import { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
+import { useNavigate } from "react-router";
 import { Sidebar } from "../components";
+import { AgenteContext } from "../contexts";
+import { IAgente } from "../interfaces";
 
 export const IngresarEscritorio: FC = (): JSX.Element => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState<boolean>(false);
+
+  const [nombre, setNombre] = useState<string>('');
+  const [escritorio, setEscritorio] = useState<number | undefined>(0);
+
+  const navigate = useNavigate();
+
+  const {setAgente} = useContext(AgenteContext);
+
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+    if(nombre.trim() === '' || escritorio === undefined || escritorio === 0) return;
+    const nuevoAgente:IAgente = {nombre : nombre.trim(), escritorio}
+    setAgente(nuevoAgente);
+    navigate('/escritorio');
+  }
+
   return (
     <div className="flex relative">
       <Sidebar setVisible={setVisible} visible={visible} />
@@ -13,7 +32,7 @@ export const IngresarEscritorio: FC = (): JSX.Element => {
             Ingrese su nombre y número de escritorio
           </p>
           <hr />
-          <form className="w-full flex justify-center mt-5">
+          <form className="w-full flex justify-center mt-5" onSubmit={handleSubmit}>
             <fieldset className="w-3/4 flex flex-col space-y-5">
               <div className="flex w-full items-center">
                 <label htmlFor="nombre">
@@ -23,6 +42,8 @@ export const IngresarEscritorio: FC = (): JSX.Element => {
                   type="text"
                   id="nombre"
                   name="nombre"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
                   placeholder="Ingrese su nombre"
                   className="border-2 pl-2 py-1 rounded-md ml-3 w-2/3"
                 />
@@ -35,6 +56,8 @@ export const IngresarEscritorio: FC = (): JSX.Element => {
                   type="number"
                   id="escritorio"
                   name="escritorio"
+                  value={escritorio}
+                  onChange={(e) => setEscritorio(Number(e.target.value))}
                   className="border-2 pl-2 py-1 rounded-md ml-3 w-2/6"
                 />
               </div>

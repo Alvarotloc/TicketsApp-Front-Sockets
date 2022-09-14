@@ -10,7 +10,7 @@ export const Sidebar: FC<ISidebarProps> = ({
     <aside
       className={`${
         visible ? "absolute left-0" : "absolute -left-52"
-      } ${"bg-slate-900 transition-all w-56 h-full md:static md:h-auto"}`}
+      } ${"bg-slate-900 z-10 transition-all w-56 h-full md:static md:h-auto"}`}
     >
       <nav className="text-slate-200 relative h-full">
         <button
