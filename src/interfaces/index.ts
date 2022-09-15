@@ -1,3 +1,6 @@
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+
 export interface ISidebarProps {
     visible    : boolean;
     setVisible : Function;
@@ -10,4 +13,9 @@ export interface IChildren {
 export interface IAgente {
     nombre : string;
     escritorio : number;
+}
+
+export interface useSocketInterface {
+    socket : Socket<DefaultEventsMap,DefaultEventsMap>;
+    online : boolean;
 }

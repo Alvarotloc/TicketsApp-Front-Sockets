@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { SocketProvider } from "./contexts";
 import {
   ColaTickets,
   CrearTicket,
@@ -9,6 +10,7 @@ import {
 
 const App: FC = (): JSX.Element => {
   return (
+    <SocketProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/ingresar" element={<IngresarEscritorio />} />
@@ -18,6 +20,7 @@ const App: FC = (): JSX.Element => {
         <Route path="*" element={<Navigate to="/ingresar" replace />} />
       </Routes>
     </BrowserRouter>
+    </SocketProvider>
   );
 };
 
