@@ -19,3 +19,10 @@ export interface useSocketInterface {
     socket : Socket<DefaultEventsMap,DefaultEventsMap>;
     online : boolean;
 }
+
+export interface ITicket {
+    id : string;
+    number : number;
+    escritorio : number | null;
+    agente :string | null;
+}

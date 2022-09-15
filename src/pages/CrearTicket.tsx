@@ -1,13 +1,26 @@
-import { FC } from 'react';
+import { FC, useContext, useState } from "react";
+import { SocketContext } from "../contexts";
+import type { ITicket } from "../interfaces";
 
 export const CrearTicket: FC = (): JSX.Element => {
+  const [ticketActual, setTicketActual] = useState<ITicket>({} as ITicket);
+
+  const { socket } = useContext(SocketContext);
+  const generarTicket = () => {
+    socket.emit("generar-ticket", null, (nuevoTicket: ITicket) => {
+      setTicketActual(nuevoTicket);
+    });
+  };
   return (
     <div className="h-screen bg-slate-100 p-5">
       <main className="bg-white h-full flex flex-col items-center">
         <h1 className="text-2xl font-semibold my-5 text-center">
           Presione el botón para un nuevo ticket
         </h1>
-        <button className="bg-blue-500 hover:bg-blue-400 transition-colors cursor-pointer text-white rounded-3xl px-3 py-2 flex mb-10">
+        <button
+          onClick={generarTicket}
+          className="bg-blue-500 hover:bg-blue-400 transition-colors cursor-pointer text-white rounded-3xl px-3 py-2 flex mb-10"
+        >
           <svg
             viewBox="0 0 24 24"
             className="w-6 h-6 mr-2 stroke-current stroke-2 fill-transparent"
@@ -22,7 +35,9 @@ export const CrearTicket: FC = (): JSX.Element => {
         </button>
         <div className="flex flex-col items-center">
           <p>Su número</p>
-          <span className="text-4xl font-semibold text-green-500">55</span>
+          <span className="text-4xl font-semibold text-green-500">
+            {Object.keys(ticketActual).length === 0 ? "" : ticketActual.number}
+          </span>
         </div>
       </main>
     </div>
