@@ -11,8 +11,3 @@ export interface IAgente {
     nombre : string;
     escritorio : number;
 }
-
-export interface AgenteProviderProps {
-    agente : IAgente;
-    setAgente : Function;
-}

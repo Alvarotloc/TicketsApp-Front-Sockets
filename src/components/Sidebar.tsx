@@ -30,8 +30,8 @@ export const Sidebar: FC<ISidebarProps> = ({
           </svg>
         </button>
         <ul>
-          <Link to="/">
-            <li className="py-3 flex pl-4 items-center hover:bg-blue-500 transition-colors">
+          <Link to="/ingresar">
+            <li className="py-3 flex pl-4 items-center md:hover:bg-blue-500 transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

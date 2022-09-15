@@ -1,22 +1,30 @@
 import { FC, useEffect } from "react";
 import { Sidebar } from "../components";
-import { useState, useContext } from "react";
-import { AgenteContext } from "../contexts";
-import { useNavigate } from 'react-router';
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { IAgente } from "../interfaces";
 export const Escritorio: FC = (): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
-
-  const { agente } = useContext(AgenteContext);
-  const { escritorio, nombre } = agente;
-
-  const navigate = useNavigate();
+  const [agente, setAgente] = useState<IAgente>(
+    JSON.parse(localStorage.getItem("agente") || "{}")
+  );
 
   useEffect(() => {
-    if(nombre === undefined){
-        navigate('/');
+    if (Object.keys(agente).length === 0) {
+      setTimeout(() => {
+        navigate("/ingresar");
+      }, 1);
     }
-  },[])
+  }, []);
 
+  const navigate = useNavigate();
+  const { escritorio, nombre } = agente;
+
+  const salir = () => {
+    setAgente({} as IAgente);
+    localStorage.setItem("agente", "{}");
+    navigate("/ingresar");
+  };
 
   return (
     <div className="flex relative">
@@ -35,7 +43,7 @@ export const Escritorio: FC = (): JSX.Element => {
           </p>
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={salir}
             className="absolute top-5 right-5 flex items-center text-white bg-red-500 hover:bg-red-400 transition-colors cursor-pointer rounded-3xl py-1 px-4"
           >
             <svg

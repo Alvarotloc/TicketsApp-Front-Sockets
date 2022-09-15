@@ -1,7 +1,6 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useState } from "react";
 import { useNavigate } from "react-router";
 import { Sidebar } from "../components";
-import { AgenteContext } from "../contexts";
 import { IAgente } from "../interfaces";
 
 export const IngresarEscritorio: FC = (): JSX.Element => {
@@ -12,13 +11,16 @@ export const IngresarEscritorio: FC = (): JSX.Element => {
 
   const navigate = useNavigate();
 
-  const {setAgente} = useContext(AgenteContext);
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
     if(nombre.trim() === '' || escritorio === undefined || escritorio === 0) return;
-    const nuevoAgente:IAgente = {nombre : nombre.trim(), escritorio}
-    setAgente(nuevoAgente);
+    // if(ticketsNumbers.length === 0){  Esto nos lo traen los sockets
+    //   alert('No hay tickets para asignar');
+    //   return;
+    // }
+    const nuevoAgente:IAgente = {nombre : nombre.trim(), escritorio};
+    localStorage.setItem('agente',JSON.stringify(nuevoAgente))
     navigate('/escritorio');
   }
 
