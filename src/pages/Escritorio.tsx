@@ -1,13 +1,21 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState, useContext } from "react";
 import { Sidebar } from "../components";
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import { IAgente } from "../interfaces";
+import type { ITicket } from "../interfaces";
+import { TicketContext } from "../contexts";
+import { toast } from "react-toastify";
+
 export const Escritorio: FC = (): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [agente, setAgente] = useState<IAgente>(
+  const [agente, setAgente] = useState<ITicket>(
     JSON.parse(localStorage.getItem("agente") || "{}")
   );
+
+  const { generarTicket, ticket, error } = useContext(TicketContext);
+
+  const { escritorio, agente: nombreAgente } = agente;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(agente).length === 0) {
@@ -17,11 +25,15 @@ export const Escritorio: FC = (): JSX.Element => {
     }
   }, []);
 
-  const navigate = useNavigate();
-  const { escritorio, nombre } = agente;
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      return;
+    }
+  }, [error, ticket]);
 
   const salir = () => {
-    setAgente({} as IAgente);
+    setAgente({} as ITicket);
     localStorage.setItem("agente", "{}");
     navigate("/ingresar");
   };
@@ -31,7 +43,7 @@ export const Escritorio: FC = (): JSX.Element => {
       <Sidebar setVisible={setVisible} visible={visible} />
       <div className="h-screen bg-slate-100 p-5 w-full">
         <main className="bg-white h-full pt-5 px-5 relative">
-          <h1 className="text-3xl font-semibold">{nombre}</h1>
+          <h1 className="text-3xl font-semibold">{nombreAgente}</h1>
           <p className="my-5 text-sm">
             Usted está trabajando en el escritorio:{" "}
             <span className="text-green-500">{escritorio}</span>
@@ -39,7 +51,9 @@ export const Escritorio: FC = (): JSX.Element => {
           <hr />
           <p className="text-sm mt-10">
             Está atendiendo el ticket número:{" "}
-            <span className="text-3xl text-red-500">55</span>
+            <span className="text-3xl text-red-500">
+              {ticket.number || agente.number}
+            </span>
           </p>
           <button
             type="button"
@@ -60,6 +74,7 @@ export const Escritorio: FC = (): JSX.Element => {
           </button>
           <button
             type="button"
+            onClick={() => generarTicket(escritorio, nombreAgente)}
             className="absolute top-64 right-5 flex items-center text-white bg-blue-500 hover:bg-blue-400 transition-colors cursor-pointer rounded-3xl py-1 px-4"
           >
             <svg

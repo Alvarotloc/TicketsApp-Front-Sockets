@@ -10,11 +10,6 @@ export interface IChildren {
     children : JSX.Element | JSX.Element[]
 }
 
-export interface IAgente {
-    nombre : string;
-    escritorio : number;
-}
-
 export interface useSocketInterface {
     socket : Socket<DefaultEventsMap,DefaultEventsMap>;
     online : boolean;
@@ -23,6 +18,12 @@ export interface useSocketInterface {
 export interface ITicket {
     id : string;
     number : number;
-    escritorio : number | null;
-    agente :string | null;
+    escritorio : number;
+    agente :string;
+}
+
+export interface TicketContectProps {
+    generarTicket : (escritorio:number,nombre:string) => void
+    ticket : ITicket;
+    error : string
 }

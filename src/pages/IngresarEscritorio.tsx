@@ -1,27 +1,36 @@
-import React, { FC, useState } from "react";
-import { useNavigate } from "react-router";
+import React, { FC, useState,useContext, useEffect } from "react";
 import { Sidebar } from "../components";
-import { IAgente } from "../interfaces";
+import { TicketContext } from "../contexts";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export const IngresarEscritorio: FC = (): JSX.Element => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const [nombre, setNombre] = useState<string>('');
-  const [escritorio, setEscritorio] = useState<number | undefined>(0);
+  const [escritorio, setEscritorio] = useState<number>(0);
 
   const navigate = useNavigate();
 
+  const {error, generarTicket, ticket} = useContext(TicketContext);
+
+  useEffect(() => {
+    if(error){
+      toast.error(error);
+      return;
+    }
+    if(Object.keys(ticket).length > 0){
+      navigate('/escritorio');
+    }
+  },[error,ticket])
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-    if(nombre.trim() === '' || escritorio === undefined || escritorio === 0) return;
-    // if(ticketsNumbers.length === 0){  Esto nos lo traen los sockets
-    //   alert('No hay tickets para asignar');
-    //   return;
-    // }
-    const nuevoAgente:IAgente = {nombre : nombre.trim(), escritorio};
-    localStorage.setItem('agente',JSON.stringify(nuevoAgente))
-    navigate('/escritorio');
+    if(nombre.trim() === '' || escritorio <= 0){
+      toast.error('Todos los campos son obligatorios');
+      return;
+    }
+    generarTicket(escritorio,nombre.trim());
   }
 
   return (
