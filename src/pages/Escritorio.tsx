@@ -11,7 +11,7 @@ export const Escritorio: FC = (): JSX.Element => {
     JSON.parse(localStorage.getItem("agente") || "{}")
   );
 
-  const { generarTicket, ticket, error } = useContext(TicketContext);
+  const { generarTicket, ticket, error,setTicket } = useContext(TicketContext);
 
   const { escritorio, agente: nombreAgente } = agente;
 
@@ -34,6 +34,7 @@ export const Escritorio: FC = (): JSX.Element => {
 
   const salir = () => {
     setAgente({} as ITicket);
+    setTicket({});
     localStorage.setItem("agente", "{}");
     navigate("/ingresar");
   };

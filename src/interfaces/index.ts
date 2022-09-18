@@ -7,23 +7,30 @@ export interface ISidebarProps {
 }
 
 export interface IChildren {
-    children : JSX.Element | JSX.Element[]
+    children   : JSX.Element | JSX.Element[]
 }
 
 export interface useSocketInterface {
-    socket : Socket<DefaultEventsMap,DefaultEventsMap>;
-    online : boolean;
+    socket     : Socket<DefaultEventsMap,DefaultEventsMap>;
+    online     : boolean;
 }
 
 export interface ITicket {
-    id : string;
-    number : number;
+    id         : string;
+    number     : number;
     escritorio : number;
-    agente :string;
+    agente     : string;
 }
 
 export interface TicketContectProps {
     generarTicket : (escritorio:number,nombre:string) => void
-    ticket : ITicket;
-    error : string
+    ticket        : ITicket;
+    error         : string;
+    setTicket     : Function;
+}
+
+export interface ICards {
+    numeroTicket     : number;
+    nombreAgente     : string;
+    numeroEscritorio : number
 }

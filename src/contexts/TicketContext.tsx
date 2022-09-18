@@ -1,4 +1,4 @@
-import { FC, useState, createContext, useContext } from "react";
+import { FC, useState, createContext, useContext, useEffect } from "react";
 import { IChildren, ITicket, TicketContectProps } from "../interfaces";
 
 import { SocketContext } from "../contexts";
@@ -8,6 +8,12 @@ export const TicketContext = createContext({} as TicketContectProps);
 export const TicketProvider: FC<IChildren> = ({ children }): JSX.Element => {
   const [ticket, setTicket] = useState<ITicket>({} as ITicket);
   const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    if(error){
+      setError('');
+    }
+  },[error])
 
   const { socket } = useContext(SocketContext);
 
@@ -28,6 +34,7 @@ export const TicketProvider: FC<IChildren> = ({ children }): JSX.Element => {
         ticket,
         error,
         generarTicket,
+        setTicket
       }}
     >
       {children}
